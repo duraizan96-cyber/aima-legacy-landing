@@ -1290,6 +1290,8 @@
   .modal-box {
     position: relative;
     width: 100%; max-width: 480px;
+    max-height: 92vh;
+    overflow-y: auto;
     background: rgba(10,10,22,0.96);
     border: 1px solid rgba(255,255,255,0.09);
     border-radius: 20px;
@@ -2364,25 +2366,40 @@
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal(); });
 
+  // Validación visual
+  function markError(el, isErr) {
+    el.style.borderColor = isErr ? 'rgba(239,68,68,.7)' : '';
+    el.style.boxShadow   = isErr ? '0 0 0 3px rgba(239,68,68,.15)' : '';
+  }
+
   // Enviar
-  form.addEventListener('submit', async e => {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const nombre   = document.getElementById('f-nombre').value.trim();
-    const telefono = document.getElementById('f-telefono').value.trim();
+    e.stopPropagation();
+
+    const fNombre   = document.getElementById('f-nombre');
+    const fTelefono = document.getElementById('f-telefono');
+    const nombre    = fNombre.value.trim();
+    const telefono  = fTelefono.value.trim();
+
+    // Validación visual
+    markError(fNombre,   !nombre);
+    markError(fTelefono, !telefono);
     if (!nombre || !telefono) {
-      if (!nombre) document.getElementById('f-nombre').focus();
-      else document.getElementById('f-telefono').focus();
+      (!nombre ? fNombre : fTelefono).focus();
       return;
     }
+    markError(fNombre, false);
+    markError(fTelefono, false);
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando…';
 
     const payload = {
       nombre,
-      empresa:  document.getElementById('f-empresa').value.trim(),
+      empresa:  document.getElementById('f-empresa').value.trim() || '—',
       telefono,
-      mensaje:  document.getElementById('f-mensaje').value.trim()
+      mensaje:  document.getElementById('f-mensaje').value.trim() || '—'
     };
 
     try {
@@ -2397,6 +2414,15 @@
     } catch(err) {
       submitBtn.disabled = false;
       submitBtn.innerHTML = 'Enviar solicitud &nbsp;→';
+      // Mostrar error visible
+      var errEl = document.getElementById('formError');
+      if (!errEl) {
+        errEl = document.createElement('p');
+        errEl.id = 'formError';
+        errEl.style.cssText = 'color:#f87171;font-size:.8rem;text-align:center;margin-top:10px;';
+        submitBtn.parentNode.insertBefore(errEl, submitBtn.nextSibling);
+      }
+      errEl.textContent = 'Ha ocurrido un error. Por favor, inténtalo de nuevo.';
     }
   });
 })();
