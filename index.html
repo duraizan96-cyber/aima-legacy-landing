@@ -1271,6 +1271,123 @@
     0%   { opacity: .6; transform: scale(1); }
     100% { opacity: 0;  transform: scale(2.5); }
   }
+
+  /* ═══════════════════════════════════════════════
+     MODAL DE CONTACTO
+  ═══════════════════════════════════════════════ */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 9000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    background: rgba(4,4,15,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s var(--ease);
+  }
+  .modal-overlay.is-open { opacity: 1; pointer-events: all; }
+
+  .modal-box {
+    position: relative;
+    width: 100%; max-width: 480px;
+    background: rgba(10,10,22,0.96);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 20px;
+    padding: 48px 44px 40px;
+    box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(37,99,235,.08);
+    transform: translateY(24px);
+    transition: transform .35s var(--ease-o);
+  }
+  .modal-overlay.is-open .modal-box { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 18px; right: 20px;
+    background: none; border: none; cursor: pointer;
+    color: var(--white-muted); font-size: 1.5rem; line-height: 1;
+    padding: 4px 8px; border-radius: 6px;
+    transition: color .2s, background .2s;
+  }
+  .modal-close:hover { color: var(--white); background: rgba(255,255,255,.06); }
+
+  .modal-eyebrow {
+    font-size: .7rem; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--blue-light);
+    margin-bottom: 10px;
+  }
+  .modal-title {
+    font-family: var(--font-display); font-size: 1.85rem;
+    font-weight: 500; color: var(--white); line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .modal-sub {
+    font-size: .84rem; color: var(--white-muted); margin-bottom: 30px; line-height: 1.6;
+  }
+
+  .field-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .field-group label {
+    font-size: .72rem; font-weight: 500; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--white-dim);
+  }
+  .field-group .optional { font-weight: 400; text-transform: none; letter-spacing: 0; opacity: .7; }
+  .field-group input,
+  .field-group textarea {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--white);
+    font-family: var(--font-body); font-size: .9rem;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    resize: none;
+  }
+  .field-group input::placeholder,
+  .field-group textarea::placeholder { color: var(--white-muted); }
+  .field-group input:focus,
+  .field-group textarea:focus {
+    border-color: rgba(37,99,235,.6);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+  }
+
+  .modal-submit {
+    width: 100%; padding: 14px 24px; margin-top: 6px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 10px; cursor: pointer;
+    font-family: var(--font-body); font-size: .95rem; font-weight: 500;
+    letter-spacing: .02em;
+    transition: background .2s, transform .2s, box-shadow .2s;
+  }
+  .modal-submit:hover:not(:disabled) {
+    background: #1d4ed8; transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(37,99,235,.45);
+  }
+  .modal-submit:disabled { opacity: .6; cursor: not-allowed; }
+  .modal-legal {
+    text-align: center; font-size: .72rem; color: var(--white-muted);
+    margin-top: 14px;
+  }
+
+  /* Success state */
+  .modal-success {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 20px 0 10px;
+  }
+  .success-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(37,99,235,.15); border: 1px solid rgba(37,99,235,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: var(--blue-light); margin-bottom: 24px;
+  }
+  .modal-success h3 {
+    font-family: var(--font-display); font-size: 2rem;
+    font-weight: 500; color: var(--white); margin-bottom: 12px;
+  }
+  .modal-success p { font-size: .9rem; color: var(--white-muted); line-height: 1.7; max-width: 280px; }
+
+  @media (max-width: 520px) {
+    .modal-box { padding: 36px 24px 30px; }
+    .modal-title { font-size: 1.55rem; }
+  }
   </style>
 </head>
 <body>
@@ -1279,7 +1396,7 @@
 <div id="scroll-bar"></div>
 
 <!-- ─── FLOATING CTA ────────────────────────── -->
-<a href="mailto:hola@aimalegacy.es" id="floatCta" aria-label="Contactar" title="Escríbenos">
+<a href="#" id="floatCta" aria-label="Contactar" title="Escríbenos" data-modal="open">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
   </svg>
@@ -1313,7 +1430,7 @@
   <a href="#proceso">Proceso</a>
   <a href="#faq">FAQ</a>
   <a href="#contacto">Contacto</a>
-  <a href="#contacto" class="btn btn-blue" style="margin-top:16px;border-radius:3px;">Hablemos</a>
+  <a href="#" class="btn btn-blue" style="margin-top:16px;border-radius:3px;" data-modal="open">Hablemos</a>
 </div>
 
 <!-- ─── NAV ─────────────────────────────────── -->
@@ -1332,7 +1449,7 @@
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta">Hablemos</a>
+  <a href="#" class="nav-cta" data-modal="open">Hablemos</a>
   <button class="nav-burger" id="navBurger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -1363,7 +1480,7 @@
           Tú te enfocas en lo tuyo. Nosotros en hacerlo más eficiente.
         </p>
         <div class="hero-btns">
-          <a href="#contacto" class="btn btn-blue">Cuéntanos tu proyecto &nbsp;→</a>
+          <a href="#" class="btn btn-blue" data-modal="open">Cuéntanos tu proyecto &nbsp;→</a>
           <a href="#proceso" class="btn btn-ghost">Cómo trabajamos</a>
         </div>
       </div>
@@ -1581,7 +1698,7 @@
 
     </div>
     <div class="pain-cta-line">
-      <a href="#contacto" class="btn btn-blue">Sí, quiero que me ayudéis &nbsp;→</a>
+      <a href="#" class="btn btn-blue" data-modal="open">Sí, quiero que me ayudéis &nbsp;→</a>
     </div>
   </div>
 </section>
@@ -1716,7 +1833,7 @@
       Sin tecnicismos, sin presión, sin coste.
     </p>
     <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
-      <a href="mailto:hola@aimalegacy.es" class="btn btn-blue btn-lg">
+      <a href="#" class="btn btn-blue btn-lg" data-modal="open">
         Damos el primer paso juntos &nbsp;→
       </a>
       <p class="cta-fine">Consulta gratuita &nbsp;·&nbsp; <span>Sin ningún compromiso.</span></p>
@@ -2167,6 +2284,121 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+})();
+</script>
+
+<!-- ══════════════════════════════════════════
+     MODAL DE CONTACTO
+══════════════════════════════════════════ -->
+<div id="contactModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">&#x2715;</button>
+
+    <!-- Formulario -->
+    <div id="modalFormWrap">
+      <div class="modal-eyebrow">Primer paso</div>
+      <h2 id="modalTitle" class="modal-title">Cuéntanos tu situación</h2>
+      <p class="modal-sub">Nos pondremos en contacto contigo en menos de 24 horas.</p>
+
+      <form id="leadForm" novalidate>
+        <div class="field-group">
+          <label for="f-nombre">Nombre completo</label>
+          <input type="text" id="f-nombre" name="nombre" required placeholder="Tu nombre y apellidos" autocomplete="name">
+        </div>
+        <div class="field-group">
+          <label for="f-empresa">Empresa <span class="optional">(opcional)</span></label>
+          <input type="text" id="f-empresa" name="empresa" placeholder="Nombre de tu empresa o negocio" autocomplete="organization">
+        </div>
+        <div class="field-group">
+          <label for="f-telefono">Teléfono de contacto</label>
+          <input type="tel" id="f-telefono" name="telefono" required placeholder="+34 600 000 000" autocomplete="tel">
+        </div>
+        <div class="field-group">
+          <label for="f-mensaje">¿Qué te gustaría mejorar? <span class="optional">(opcional)</span></label>
+          <textarea id="f-mensaje" name="mensaje" rows="3" placeholder="Cuéntanos brevemente dónde estás y qué necesitas."></textarea>
+        </div>
+        <button type="submit" class="modal-submit" id="modalSubmitBtn">
+          Enviar solicitud &nbsp;→
+        </button>
+        <p class="modal-legal">Sin ningún compromiso. Solo una conversación.</p>
+      </form>
+    </div>
+
+    <!-- Estado de éxito -->
+    <div id="modalSuccess" class="modal-success" style="display:none;">
+      <div class="success-icon">&#x2713;</div>
+      <h3>Recibido.</h3>
+      <p>Nos pondremos en contacto contigo en menos de 24&nbsp;horas. Gracias por confiar en nosotros.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const overlay   = document.getElementById('contactModal');
+  const closeBtn  = document.getElementById('modalClose');
+  const form      = document.getElementById('leadForm');
+  const formWrap  = document.getElementById('modalFormWrap');
+  const success   = document.getElementById('modalSuccess');
+  const submitBtn = document.getElementById('modalSubmitBtn');
+  const WEBHOOK   = 'https://aprendiendo1-n8n.qtma3u.easypanel.host/webhook/contacto-aimalegacy';
+
+  function openModal() {
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { const f = document.getElementById('f-nombre'); if(f) f.focus(); }, 120);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Abrir con cualquier elemento data-modal="open"
+  document.querySelectorAll('[data-modal="open"]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); openModal(); });
+  });
+
+  // Cerrar
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal(); });
+
+  // Enviar
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const nombre   = document.getElementById('f-nombre').value.trim();
+    const telefono = document.getElementById('f-telefono').value.trim();
+    if (!nombre || !telefono) {
+      if (!nombre) document.getElementById('f-nombre').focus();
+      else document.getElementById('f-telefono').focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
+
+    const payload = {
+      nombre,
+      empresa:  document.getElementById('f-empresa').value.trim(),
+      telefono,
+      mensaje:  document.getElementById('f-mensaje').value.trim()
+    };
+
+    try {
+      await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      formWrap.style.display = 'none';
+      success.style.display  = 'flex';
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    } catch(err) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Enviar solicitud &nbsp;→';
+    }
+  });
 })();
 </script>
 </body>
