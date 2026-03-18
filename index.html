@@ -1131,6 +1131,75 @@
   }
 
   /* ═══════════════════════════════════════════════
+     PAIN POINTS GRID
+  ═══════════════════════════════════════════════ */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .pain-card {
+    background: rgba(255,255,255,.025);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 14px;
+    padding: 34px 30px;
+    transition: all .35s var(--ease);
+    position: relative; overflow: hidden;
+    cursor: default;
+  }
+  .pain-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(37,99,235,.3), transparent);
+    opacity: 0; transition: opacity .35s;
+  }
+  .pain-card:hover {
+    border-color: rgba(37,99,235,.28);
+    transform: translateY(-4px);
+    background: rgba(255,255,255,.04);
+    box-shadow: 0 16px 48px rgba(0,0,0,.25), 0 0 30px rgba(37,99,235,.06);
+  }
+  .pain-card:hover::before { opacity: 1; }
+  .pain-num {
+    font-family: var(--font-num);
+    font-size: 2.8rem; line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(37,99,235,.22);
+    display: block; margin-bottom: 18px;
+    transition: -webkit-text-stroke-color .35s;
+  }
+  .pain-card:hover .pain-num { -webkit-text-stroke-color: rgba(37,99,235,.5); }
+  .pain-card p {
+    font-size: .935rem; color: var(--white-dim);
+    line-height: 1.75;
+  }
+  .pain-cta-line {
+    text-align: center; margin-top: 64px;
+  }
+  .pain-cta-line p {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.5vw, 1.75rem);
+    font-weight: 300; font-style: italic;
+    color: var(--white); margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .pain-cta-line p strong {
+    font-weight: 600; font-style: normal;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  @media (max-width: 900px) {
+    .pain-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .pain-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ═══════════════════════════════════════════════
      FLOATING CTA BUTTON
   ═══════════════════════════════════════════════ */
   #floatCta {
@@ -1240,11 +1309,11 @@
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-close" id="mobileClose" aria-label="Cerrar">✕</button>
   <a href="#servicios">Servicios</a>
-  <a href="#stack">Stack IA</a>
+  <a href="#problemas">¿Es para ti?</a>
   <a href="#proceso">Proceso</a>
   <a href="#faq">FAQ</a>
   <a href="#contacto">Contacto</a>
-  <a href="#contacto" class="btn btn-blue" style="margin-top:16px;border-radius:3px;">Trabajemos Juntos</a>
+  <a href="#contacto" class="btn btn-blue" style="margin-top:16px;border-radius:3px;">Hablemos</a>
 </div>
 
 <!-- ─── NAV ─────────────────────────────────── -->
@@ -1258,12 +1327,12 @@
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#stack">Stack IA</a></li>
+    <li><a href="#problemas">¿Es para ti?</a></li>
     <li><a href="#proceso">Proceso</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
-  <a href="#contacto" class="nav-cta">Trabajemos Juntos</a>
+  <a href="#contacto" class="nav-cta">Hablemos</a>
   <button class="nav-burger" id="navBurger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -1280,21 +1349,22 @@
       <div class="hero-left">
         <div class="hero-live-badge">
           <span class="live-dot"></span>
-          Agencia activa · Marketing + IA
+          Para empresas que aún no han dado el paso
         </div>
-        <div class="hero-eyebrow">Resultados extraordinarios</div>
+        <div class="hero-eyebrow">Inteligencia artificial aplicada</div>
         <h1 class="hero-hl">
-          Tu marca<br>
-          merece un<br>
-          <span class="word-rotate" id="wordRotate">legado.</span>
+          Tu negocio<br>
+          tiene todo para<br>
+          <span class="word-rotate" id="wordRotate">crecer.</span>
         </h1>
         <p class="hero-sub">
-          Combinamos estrategia humana con inteligencia artificial
-          para transformar marcas que dejan huella en su industria.
+          Integramos inteligencia artificial en tu empresa de forma práctica,
+          sin tecnicismos y sin que tengas que entender cómo funciona.
+          Tú te enfocas en tu negocio. Nosotros en hacerlo más eficiente.
         </p>
         <div class="hero-btns">
-          <a href="#contacto" class="btn btn-blue">Agenda una llamada &nbsp;→</a>
-          <a href="#servicios" class="btn btn-ghost">Ver servicios</a>
+          <a href="#contacto" class="btn btn-blue">Hablemos — es gratis &nbsp;→</a>
+          <a href="#proceso" class="btn btn-ghost">Cómo trabajamos</a>
         </div>
       </div>
 
@@ -1310,16 +1380,16 @@
 
           <!-- Floating cards -->
           <div class="float-card float-card-1">
-            <span class="fc-val blue">8x</span>
-            <span class="fc-lbl">ROI promedio</span>
+            <span class="fc-val blue">0€</span>
+            <span class="fc-lbl">Primera consulta</span>
           </div>
           <div class="float-card float-card-2">
-            <span class="fc-val">+150</span>
-            <span class="fc-lbl">Marcas transformadas</span>
+            <span class="fc-val">48h</span>
+            <span class="fc-lbl">Propuesta lista</span>
           </div>
           <div class="float-card float-card-3">
-            <span class="fc-val blue">$2M+</span>
-            <span class="fc-lbl">Revenue generado</span>
+            <span class="fc-val blue">100%</span>
+            <span class="fc-lbl">Personalizado</span>
           </div>
         </div>
       </div>
@@ -1327,20 +1397,20 @@
     </div>
   </div>
 
-  <!-- Stats strip -->
+  <!-- Trust strip -->
   <div class="hero-stats">
     <div class="hero-stats-inner">
       <div class="stat">
-        <span class="stat-n" data-target="150" data-prefix="+" data-suffix="">+150</span>
-        <span class="stat-l">Marcas transformadas</span>
+        <span class="stat-n">0€</span>
+        <span class="stat-l">Primera consulta · siempre</span>
       </div>
       <div class="stat">
-        <span class="stat-n" data-target="8" data-prefix="" data-suffix="x">8x</span>
-        <span class="stat-l">ROI promedio</span>
+        <span class="stat-n">48h</span>
+        <span class="stat-l">Para enviarte propuesta</span>
       </div>
       <div class="stat">
-        <span class="stat-n" data-target="2" data-prefix="$" data-suffix="M+">$2M+</span>
-        <span class="stat-l">Revenue generado</span>
+        <span class="stat-n">100%</span>
+        <span class="stat-l">Proyectos a medida</span>
       </div>
     </div>
   </div>
@@ -1348,30 +1418,30 @@
 
 <!-- ── PLATFORMS MARQUEE ──────────────────────── -->
 <div class="marquee-section">
-  <p class="marquee-label">Plataformas que dominamos</p>
+  <p class="marquee-label">Áreas en las que trabajamos</p>
   <div class="marquee-overflow">
     <div class="marquee-track">
-      <span class="m-item">META ADS</span><span class="m-dot">◆</span>
-      <span class="m-item">GOOGLE ADS</span><span class="m-dot">◆</span>
-      <span class="m-item">TIKTOK</span><span class="m-dot">◆</span>
-      <span class="m-item">OPENAI</span><span class="m-dot">◆</span>
-      <span class="m-item">N8N</span><span class="m-dot">◆</span>
-      <span class="m-item">INSTAGRAM</span><span class="m-dot">◆</span>
-      <span class="m-item">LINKEDIN</span><span class="m-dot">◆</span>
-      <span class="m-item">HUBSPOT</span><span class="m-dot">◆</span>
-      <span class="m-item">MAKE</span><span class="m-dot">◆</span>
-      <span class="m-item">CLAUDE AI</span><span class="m-dot">◆</span>
+      <span class="m-item">AUTOMATIZACIÓN</span><span class="m-dot">◆</span>
+      <span class="m-item">CAPTACIÓN DE CLIENTES</span><span class="m-dot">◆</span>
+      <span class="m-item">MARKETING DIGITAL</span><span class="m-dot">◆</span>
+      <span class="m-item">REDUCCIÓN DE COSTES</span><span class="m-dot">◆</span>
+      <span class="m-item">PUBLICIDAD ONLINE</span><span class="m-dot">◆</span>
+      <span class="m-item">ESTRATEGIA DE CRECIMIENTO</span><span class="m-dot">◆</span>
+      <span class="m-item">ANÁLISIS DE DATOS</span><span class="m-dot">◆</span>
+      <span class="m-item">CONTENIDO Y MARCA</span><span class="m-dot">◆</span>
+      <span class="m-item">REDES SOCIALES</span><span class="m-dot">◆</span>
+      <span class="m-item">INTELIGENCIA ARTIFICIAL</span><span class="m-dot">◆</span>
       <!-- duplicate -->
-      <span class="m-item">META ADS</span><span class="m-dot">◆</span>
-      <span class="m-item">GOOGLE ADS</span><span class="m-dot">◆</span>
-      <span class="m-item">TIKTOK</span><span class="m-dot">◆</span>
-      <span class="m-item">OPENAI</span><span class="m-dot">◆</span>
-      <span class="m-item">N8N</span><span class="m-dot">◆</span>
-      <span class="m-item">INSTAGRAM</span><span class="m-dot">◆</span>
-      <span class="m-item">LINKEDIN</span><span class="m-dot">◆</span>
-      <span class="m-item">HUBSPOT</span><span class="m-dot">◆</span>
-      <span class="m-item">MAKE</span><span class="m-dot">◆</span>
-      <span class="m-item">CLAUDE AI</span><span class="m-dot">◆</span>
+      <span class="m-item">AUTOMATIZACIÓN</span><span class="m-dot">◆</span>
+      <span class="m-item">CAPTACIÓN DE CLIENTES</span><span class="m-dot">◆</span>
+      <span class="m-item">MARKETING DIGITAL</span><span class="m-dot">◆</span>
+      <span class="m-item">REDUCCIÓN DE COSTES</span><span class="m-dot">◆</span>
+      <span class="m-item">PUBLICIDAD ONLINE</span><span class="m-dot">◆</span>
+      <span class="m-item">ESTRATEGIA DE CRECIMIENTO</span><span class="m-dot">◆</span>
+      <span class="m-item">ANÁLISIS DE DATOS</span><span class="m-dot">◆</span>
+      <span class="m-item">CONTENIDO Y MARCA</span><span class="m-dot">◆</span>
+      <span class="m-item">REDES SOCIALES</span><span class="m-dot">◆</span>
+      <span class="m-item">INTELIGENCIA ARTIFICIAL</span><span class="m-dot">◆</span>
     </div>
   </div>
 </div>
@@ -1381,9 +1451,9 @@
 ══════════════════════════════════════════ -->
 <section class="services" id="servicios">
   <div class="services-hd sr">
-    <div class="eyebrow">Lo que hacemos</div>
+    <div class="eyebrow">En qué te ayudamos</div>
     <h2 class="sec-title" style="margin-top:16px;">
-      Servicios diseñados<br>para <em>resultados reales</em>
+      Sin tecnicismos.<br><em>Solo resultados.</em>
     </h2>
   </div>
   <div class="cards">
@@ -1395,9 +1465,9 @@
           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
         </svg>
       </div>
-      <h3 class="card-title">Marketing Digital 360°</h3>
-      <p class="card-desc">Estrategia integral que abarca todos los canales: SEO, redes sociales, email marketing y contenido coordinados para maximizar tu impacto y visibilidad online.</p>
-      <div class="card-link">Explorar servicio <span>→</span></div>
+      <h3 class="card-title">Automatización de tareas</h3>
+      <p class="card-desc">Identificamos qué procesos de tu negocio se pueden automatizar — respuestas a clientes, seguimientos, reportes, envíos — y lo hacemos funcionar solo. Más tiempo para ti, menos errores.</p>
+      <div class="card-link">Cuéntame más <span>→</span></div>
     </div>
 
     <div class="card sr d2">
@@ -1408,9 +1478,9 @@
           <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
         </svg>
       </div>
-      <h3 class="card-title">Automatización con IA</h3>
-      <p class="card-desc">Implementamos flujos de trabajo inteligentes que operan 24/7. Desde chatbots avanzados hasta análisis predictivo, tu negocio escala sin límites humanos.</p>
-      <div class="card-link">Explorar servicio <span>→</span></div>
+      <h3 class="card-title">Publicidad online</h3>
+      <p class="card-desc">Creamos y gestionamos tus campañas en Meta, Google o TikTok. Sin jerga publicitaria: definimos juntos a quién queremos llegar, cuánto invertir y qué esperar a cambio.</p>
+      <div class="card-link">Cuéntame más <span>→</span></div>
     </div>
 
     <div class="card sr d3">
@@ -1420,9 +1490,9 @@
           <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
         </svg>
       </div>
-      <h3 class="card-title">Contenido & Branding</h3>
-      <p class="card-desc">Construimos identidades de marca que perduran en la memoria. Copywriting estratégico, diseño visual cohesivo y narrativa que conecta con tu audiencia ideal.</p>
-      <div class="card-link">Explorar servicio <span>→</span></div>
+      <h3 class="card-title">Presencia & contenido digital</h3>
+      <p class="card-desc">Construimos tu imagen online: redes sociales activas, web profesional y mensajes que realmente conectan con tus clientes. Para que tu negocio proyecte confianza desde el primer clic.</p>
+      <div class="card-link">Cuéntame más <span>→</span></div>
     </div>
 
     <div class="card sr d4">
@@ -1432,9 +1502,9 @@
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
         </svg>
       </div>
-      <h3 class="card-title">Ads & Performance</h3>
-      <p class="card-desc">Campañas de paid media optimizadas con IA para el máximo retorno. Google, Meta, TikTok y LinkedIn gestionados por expertos obsesionados con el ROI.</p>
-      <div class="card-link">Explorar servicio <span>→</span></div>
+      <h3 class="card-title">Estrategia digital a medida</h3>
+      <p class="card-desc">Analizamos tu situación, tu competencia y tu mercado. Te entregamos un plan claro, sin tecnicismos, con los pasos concretos que necesitas dar. Sin plantillas genéricas.</p>
+      <div class="card-link">Cuéntame más <span>→</span></div>
     </div>
 
   </div>
@@ -1447,120 +1517,71 @@
   <div class="manifesto-inner sr">
     <div class="manifesto-line"></div>
     <p class="manifesto-quote">
-      No creemos en el marketing ruidoso.<br>
-      Creemos en la <strong>estrategia silenciosa</strong> que construye marcas
-      tan sólidas que el mercado no puede ignorarlas.
+      No queremos que nos compres.<br>
+      Queremos que <strong>entiendas lo que puedes ganar</strong> cuando la tecnología
+      trabaja para tu negocio, no al revés.
     </p>
     <div class="manifesto-line"></div>
     <div class="manifesto-pills">
-      <div class="pill"><span class="pill-dot blue"></span> Datos sobre intuición</div>
-      <div class="pill"><span class="pill-dot gold"></span> Velocidad de IA, alma humana</div>
-      <div class="pill"><span class="pill-dot cyan"></span> Resultados medibles</div>
-      <div class="pill"><span class="pill-dot blue"></span> Sin contratos tramposos</div>
-      <div class="pill"><span class="pill-dot gold"></span> Transparencia total</div>
-      <div class="pill"><span class="pill-dot cyan"></span> Obsesión por el ROI</div>
+      <div class="pill"><span class="pill-dot blue"></span> Sin presión ni urgencias falsas</div>
+      <div class="pill"><span class="pill-dot gold"></span> Explicamos cada paso</div>
+      <div class="pill"><span class="pill-dot cyan"></span> Presupuesto adaptado a tu realidad</div>
+      <div class="pill"><span class="pill-dot blue"></span> Empezamos cuando estés listo</div>
+      <div class="pill"><span class="pill-dot gold"></span> Propuesta en 48 horas</div>
+      <div class="pill"><span class="pill-dot cyan"></span> Primera consulta gratis</div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════
-     STACK DE IA
+     ¿TE SUENA?
 ══════════════════════════════════════════ -->
-<section class="stack-sec" id="stack">
+<section class="stack-sec" id="problemas">
   <div class="wrap">
     <div class="stack-hd sr">
-      <div class="eyebrow">Tecnología real</div>
-      <h2 class="sec-title" style="margin-top:16px; max-width:500px;">
-        Las herramientas que<br>usamos <em>cada día</em>
+      <div class="eyebrow">¿Te suena esto?</div>
+      <h2 class="sec-title" style="margin-top:16px; max-width:520px;">
+        Si es tu caso,<br>estamos <em>para eso</em>
       </h2>
       <p style="margin-top:20px; font-size:.9rem; color:var(--white-muted); max-width:460px; line-height:1.7;">
-        Sin humo. Estas son las plataformas reales con las que construimos
-        resultados para nuestros clientes.
+        No hace falta entender de tecnología. Solo necesitas querer mejorar tu negocio.
       </p>
     </div>
-    <div class="stack-grid">
+    <div class="pain-grid">
 
-      <!-- Paid Ads -->
-      <div class="stack-card sr d1">
-        <div class="stack-cat">Paid Advertising</div>
-        <div class="stack-tools">
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-blue">M</span>
-            <span class="stack-tool-name">Meta Ads</span>
-            <span class="stack-tool-tag">Facebook · IG</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-red">G</span>
-            <span class="stack-tool-name">Google Ads</span>
-            <span class="stack-tool-tag">Search · PMax</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-purple">TT</span>
-            <span class="stack-tool-name">TikTok Ads</span>
-            <span class="stack-tool-tag">Performance</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-blue">Li</span>
-            <span class="stack-tool-name">LinkedIn Ads</span>
-            <span class="stack-tool-tag">B2B</span>
-          </div>
-        </div>
+      <div class="pain-card sr d1">
+        <span class="pain-num">01</span>
+        <p>"Tengo redes sociales pero publico sin orden y no llega a nadie nuevo. Siento que hablo al vacío."</p>
       </div>
 
-      <!-- IA & Automatización -->
-      <div class="stack-card sr d2">
-        <div class="stack-cat">IA & Automatización</div>
-        <div class="stack-tools">
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-green">AI</span>
-            <span class="stack-tool-name">OpenAI GPT-4o</span>
-            <span class="stack-tool-tag">Contenido · copy</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-cyan">Cl</span>
-            <span class="stack-tool-name">Claude AI</span>
-            <span class="stack-tool-tag">Estrategia · análisis</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-blue">n8</span>
-            <span class="stack-tool-name">n8n</span>
-            <span class="stack-tool-tag">Flujos automáticos</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-gold">Mk</span>
-            <span class="stack-tool-name">Make / Zapier</span>
-            <span class="stack-tool-tag">Integraciones</span>
-          </div>
-        </div>
+      <div class="pain-card sr d2">
+        <span class="pain-num">02</span>
+        <p>"He oído que la inteligencia artificial puede ayudar a los negocios, pero no sé ni por dónde empezar."</p>
       </div>
 
-      <!-- CRM & Analytics -->
-      <div class="stack-card sr d3">
-        <div class="stack-cat">CRM & Analytics</div>
-        <div class="stack-tools">
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-gold">Hs</span>
-            <span class="stack-tool-name">HubSpot</span>
-            <span class="stack-tool-tag">CRM · pipelines</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-blue">GA</span>
-            <span class="stack-tool-name">Google Analytics 4</span>
-            <span class="stack-tool-tag">Datos · eventos</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-cyan">Ph</span>
-            <span class="stack-tool-name">PostHog</span>
-            <span class="stack-tool-tag">Product analytics</span>
-          </div>
-          <div class="stack-tool">
-            <span class="stack-tool-icon ti-green">NT</span>
-            <span class="stack-tool-name">Notion + Sheets</span>
-            <span class="stack-tool-tag">Reportes · dashboards</span>
-          </div>
-        </div>
+      <div class="pain-card sr d3">
+        <span class="pain-num">03</span>
+        <p>"Pierdo horas cada semana en tareas que se repiten: responder mensajes, hacer seguimientos, actualizar listas..."</p>
       </div>
 
+      <div class="pain-card sr d1">
+        <span class="pain-num">04</span>
+        <p>"Pongo dinero en publicidad pero no sé si funciona. No entiendo las métricas y nadie me lo explica claro."</p>
+      </div>
+
+      <div class="pain-card sr d2">
+        <span class="pain-num">05</span>
+        <p>"Mi web tiene visitas, pero casi nadie contacta. Algo falla, pero no sé qué cambiar."</p>
+      </div>
+
+      <div class="pain-card sr d3">
+        <span class="pain-num">06</span>
+        <p>"Tengo un buen producto o servicio, pero me cuesta comunicarlo bien. Mi competencia parece más profesional."</p>
+      </div>
+
+    </div>
+    <div class="pain-cta-line">
+      <a href="#contacto" class="btn btn-blue">Hablemos — la primera consulta es gratis &nbsp;→</a>
     </div>
   </div>
 </section>
@@ -1573,33 +1594,33 @@
     <div class="process-hd sr">
       <div class="eyebrow">Cómo trabajamos</div>
       <h2 class="sec-title" style="margin-top:16px; max-width:440px;">
-        Un proceso <em>probado</em><br>para escalar
+        Simple, claro<br>y <em>sin sorpresas</em>
       </h2>
     </div>
     <div class="steps">
 
       <div class="step sr d1">
         <div class="step-n">01</div>
-        <h3 class="step-t">Diagnóstico</h3>
-        <p class="step-d">Analizamos tu marca, audiencia y competencia con herramientas IA para identificar exactamente dónde está la mayor oportunidad de crecimiento.</p>
+        <h3 class="step-t">Hablamos</h3>
+        <p class="step-d">Una llamada o reunión sin coste donde nos cuentas tu negocio, tus retos y lo que quieres conseguir. Sin tecnicismos, sin formularios interminables.</p>
       </div>
 
       <div class="step sr d2">
         <div class="step-n">02</div>
-        <h3 class="step-t">Estrategia</h3>
-        <p class="step-d">Diseñamos un plan personalizado, medible y ejecutable. Sin genéricos, sin plantillas — tu negocio, tu estrategia, tus objetivos.</p>
+        <h3 class="step-t">Te enviamos una propuesta</h3>
+        <p class="step-d">En menos de 48 horas recibes un plan personalizado: qué haríamos, cómo y cuánto costaría. Todo explicado en lenguaje normal.</p>
       </div>
 
       <div class="step sr d3">
         <div class="step-n">03</div>
-        <h3 class="step-t">Ejecución</h3>
-        <p class="step-d">Implementamos con velocidad y precisión. Nuestro equipo combinado con IA trabaja en paralelo para entregar resultados en semanas, no meses.</p>
+        <h3 class="step-t">Arrancamos juntos</h3>
+        <p class="step-d">Si decides seguir adelante, empezamos. Te mantenemos informado en cada paso y te explicamos qué estamos haciendo y por qué.</p>
       </div>
 
       <div class="step sr d4">
         <div class="step-n">04</div>
-        <h3 class="step-t">Escala</h3>
-        <p class="step-d">Analizamos datos en tiempo real, optimizamos continuamente y multiplicamos todo lo que funciona. El crecimiento no tiene techo.</p>
+        <h3 class="step-t">Medimos y mejoramos</h3>
+        <p class="step-d">No desaparecemos tras el lanzamiento. Revisamos los resultados contigo, ajustamos lo que sea necesario y seguimos avanzando.</p>
       </div>
 
     </div>
@@ -1627,51 +1648,51 @@
 
       <div class="faq-item">
         <button class="faq-btn" type="button">
-          ¿Cuánto cuesta trabajar con Aima Legacy?
+          ¿Necesito saber de tecnología o inteligencia artificial?
           <span class="faq-chevron">+</span>
         </button>
         <div class="faq-body"><div class="faq-body-inner">
-          <p>Cada proyecto es diferente. El precio varía según el alcance, los servicios y los objetivos. Ofrecemos una consultoría gratuita donde evaluamos tu situación y presentamos una propuesta personalizada sin compromisos.</p>
+          <p>Para nada. Nosotros nos encargamos de toda la parte técnica. Tú solo necesitas saber qué quieres conseguir con tu negocio. Explicamos cada paso en lenguaje normal, sin siglas ni tecnicismos.</p>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" type="button">
-          ¿En cuánto tiempo veré resultados?
+          ¿Cuánto cuesta trabajar con vosotros?
           <span class="faq-chevron">+</span>
         </button>
         <div class="faq-body"><div class="faq-body-inner">
-          <p>Los primeros resultados tangibles suelen aparecer entre las semanas 2 y 6 según el servicio. Las campañas de paid media muestran ROI desde el primer mes; SEO y branding construyen resultados sólidos a partir de los 90 días.</p>
+          <p>Depende de lo que necesites. Hay negocios que arrancan con un proyecto puntual y otros que prefieren un acompañamiento continuo. Tras la primera consulta — gratuita — te enviamos una propuesta con precio claro en menos de 48 horas. Sin sorpresas.</p>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" type="button">
-          ¿Cómo integráis la IA en el marketing?
+          ¿Cuándo empezaré a ver algo diferente?
           <span class="faq-chevron">+</span>
         </button>
         <div class="faq-body"><div class="faq-body-inner">
-          <p>Usamos IA para análisis predictivo, generación y optimización de contenido, automatización de flujos de captación y segmentación avanzada de audiencias. La IA multiplica velocidad y precisión sin reemplazar la estrategia humana.</p>
+          <p>Depende del servicio. Algunos cambios se notan rápido (publicidad, automatizaciones); otros, como posicionamiento o marca, construyen resultados más sólidos con el tiempo. Siempre te explicamos qué esperar y en qué plazos realistas.</p>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" type="button">
-          ¿Trabajáis con cualquier tipo de negocio?
+          ¿Con qué tipo de negocios trabajáis?
           <span class="faq-chevron">+</span>
         </button>
         <div class="faq-body"><div class="faq-body-inner">
-          <p>Trabajamos principalmente con marcas B2B, servicios profesionales, ecommerce premium y startups en fase de crecimiento. Si tu negocio tiene potencial y ambición de escalar, somos el equipo adecuado.</p>
+          <p>Con negocios reales de cualquier sector: tiendas, servicios, profesionales independientes, pymes. No necesitas ser una gran empresa. Necesitas tener ganas de mejorar y estar dispuesto a dar el paso.</p>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" type="button">
-          ¿Firmo un contrato de permanencia?
+          ¿Me comprometo a algo si pido la consulta gratuita?
           <span class="faq-chevron">+</span>
         </button>
         <div class="faq-body"><div class="faq-body-inner">
-          <p>No imponemos contratos de permanencia forzada. Trabajamos con compromisos mínimos de 3 meses para que la estrategia madure correctamente, pero confiamos en que los resultados serán el mejor motivo para continuar juntos.</p>
+          <p>No. La primera consulta no tiene ningún coste ni genera ningún compromiso. Es simplemente una conversación para conocernos y ver si podemos ayudarte. Si decides no seguir, sin problema.</p>
         </div></div>
       </div>
 
@@ -1684,20 +1705,21 @@
 ══════════════════════════════════════════ -->
 <section class="cta-sec" id="contacto">
   <div class="cta-inner sr">
-    <p class="cta-ey">Empieza hoy</p>
+    <p class="cta-ey">Sin presión</p>
     <h2 class="cta-hl">
-      ¿Listo para construir<br>
-      tu <em>legado digital?</em>
+      ¿Tienes curiosidad?<br>
+      <em>Hablemos.</em>
     </h2>
     <p class="cta-sub">
-      Cada día que esperas es una oportunidad que aprovecha tu competencia.
-      Hablemos hoy y diseñemos juntos la estrategia que tu marca merece.
+      No hace falta que lo tengas todo claro. Cuéntanos dónde estás
+      y dónde te gustaría llegar. La primera conversación es gratis
+      y sin ningún compromiso.
     </p>
     <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
       <a href="mailto:hola@aimalegacy.es" class="btn btn-blue btn-lg">
-        Quiero una Estrategia Gratis &nbsp;→
+        Quiero hablar con vosotros &nbsp;→
       </a>
-      <p class="cta-fine">Sin compromisos. Primera consulta <span>100% gratuita.</span></p>
+      <p class="cta-fine">Primera consulta gratuita. <span>Propuesta en 48 horas.</span></p>
     </div>
   </div>
 </section>
@@ -1717,8 +1739,8 @@
         </div>
       </div>
       <p class="footer-tag">
-        Transformamos marcas con la combinación perfecta de estrategia
-        humana e inteligencia artificial para resultados extraordinarios.
+        Ayudamos a negocios reales a crecer con inteligencia artificial
+        aplicada de forma práctica, honesta y a tu medida.
       </p>
     </div>
 
@@ -1726,7 +1748,7 @@
       <p class="col-hd">Navegación</p>
       <ul class="foot-links">
         <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#stack">Stack IA</a></li>
+        <li><a href="#problemas">¿Es para ti?</a></li>
         <li><a href="#proceso">Proceso</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -1765,7 +1787,7 @@
   </div>
   <div class="foot-bot">
     <p class="foot-cp">© 2026 <span>Aima Legacy</span>. Todos los derechos reservados.</p>
-    <p class="foot-cp" style="font-size:.72rem;letter-spacing:.05em;">Marketing + IA · Resultados Extraordinarios</p>
+    <p class="foot-cp" style="font-size:.72rem;letter-spacing:.05em;">Marketing + IA · Sin tecnicismos, con resultados</p>
   </div>
 </footer>
 
@@ -2076,7 +2098,7 @@
   (function () {
     const el = document.getElementById('wordRotate');
     if (!el) return;
-    const words = ['legado.', 'futuro.', 'impacto.', 'transformación.', 'propósito.', 'historia.'];
+    const words = ['crecer.', 'escalar.', 'diferenciarte.', 'avanzar.', 'evolucionar.', 'destacar.'];
     let idx = 0;
 
     function typeWord(word, cb) {
