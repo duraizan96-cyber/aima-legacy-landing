@@ -44,6 +44,29 @@
   src="https://www.facebook.com/tr?id=1746175833055742&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
+  <!-- Meta Conversions API (server-side via n8n) -->
+  <script>
+  function getCookie(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : '';
+  }
+  function sendCAPIEvent(eventName) {
+    var payload = {
+      event_name: eventName,
+      event_source_url: window.location.href,
+      client_user_agent: navigator.userAgent,
+      fbp: getCookie('_fbp'),
+      fbc: getCookie('_fbc')
+    };
+    fetch('https://aprendiendo1-n8n.qtma3u.easypanel.host/webhook/meta-capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).catch(function(){});
+  }
+  window.addEventListener('load', function() { sendCAPIEvent('PageView'); });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -2411,6 +2434,7 @@
       formWrap.style.display = 'none';
       success.style.display  = 'flex';
       if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+      sendCAPIEvent('Lead');
     } catch(err) {
       submitBtn.disabled = false;
       submitBtn.innerHTML = 'Enviar solicitud &nbsp;→';
